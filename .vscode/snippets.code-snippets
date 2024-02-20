@@ -1,0 +1,24 @@
+{
+  "VueJS Default Scaffold": {
+    "scope": "typescript,vue",
+    "prefix": "vue",
+    "body": [
+      "<template>\n\t<div>\n\t\t<!-- -->\n\t</div>\n</template>\n", //
+      "<script setup lang=\"ts\">",
+      "import icons from '@/core/icons';",
+      "import { markRaw } from 'vue';",
+      "",
+      "markRaw({",
+      "\ticons,",
+      "});",
+      "",
+      "defineProps<{",
+      "\t//",
+      "}>();",
+      "</script>",
+      "",
+      "<style scoped>\n/*  */\n</style>",
+      ""
+    ]
+  }
+}
