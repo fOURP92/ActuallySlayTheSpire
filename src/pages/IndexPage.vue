@@ -1,5 +1,8 @@
 <template>
-  {{ winrate }}
+  <div v-for="(character, index) in results" :key="index">
+    name: {{ character.name }} wins: {{ character.wins }} loses:
+    {{ character.loses }}
+  </div>
 
   <q-btn
     label="load data"
@@ -15,6 +18,7 @@
 import axios from 'axios';
 import { ref, watch } from 'vue';
 import { parseRuns } from '../backend/runs';
+import { CharacterWinRateDto } from '../dtos/CharacterWinRateDto';
 
 const winrate = ref('test');
 
@@ -52,12 +56,15 @@ function handleDirectorySelection(event: Event) {
   selectedFile.value = event.target.files;
 }
 
+const results = ref<CharacterWinRateDto[]>([]);
+
 watch(
   () => selectedFile.value,
-  () => {
+  async () => {
     if (!selectedFile.value) return;
     // console.log('selected file is now:', selectedFile.value);
-    parseRuns(selectedFile.value);
+    results.value = await parseRuns(selectedFile.value);
   }
 );
 </script>
+../dtos/CharacterWinRateDto
