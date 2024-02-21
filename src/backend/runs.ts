@@ -20,34 +20,21 @@ async function parseRuns(
           const fileContent = event.target.result as string;
           const fileObject = JSON.parse(fileContent);
 
-          console.log(fileObject.character_chosen);
-
-          if (fileObject.killed_by) {
-            if (fileObject.character_chosen === 'IRONCLAD') {
-              ironclad.loses++;
-            }
-            if (fileObject.character_chosen === 'THE_SILENT') {
-              silent.loses++;
-            }
-            if (fileObject.character_chosen === 'DEFECT') {
-              defect.loses++;
-            }
-            if (fileObject.character_chosen === 'WATCHER') {
-              watcher.loses++;
-            }
-          } else {
-            if (fileObject.character_chosen === 'IRONCLAD') {
-              ironclad.wins++;
-            }
-            if (fileObject.character_chosen === 'THE_SILENT') {
-              silent.wins++;
-            }
-            if (fileObject.character_chosen === 'DEFECT') {
-              defect.wins++;
-            }
-            if (fileObject.character_chosen === 'WATCHER') {
-              watcher.wins++;
-            }
+          const characterChosen: string = fileObject.character_chosen;
+          console.log(characterChosen);
+          switch (characterChosen) {
+            case 'IRONCLAD':
+              fileObject.killed_by ? ironclad.loses++ : ironclad.wins++;
+              break;
+            case 'THE_SILENT':
+              fileObject.killed_by ? silent.loses++ : silent.wins++;
+              break;
+            case 'DEFECT':
+              fileObject.killed_by ? defect.loses++ : defect.wins++;
+              break;
+            case 'WATCHER':
+              fileObject.killed_by ? watcher.loses++ : watcher.wins++;
+              break;
           }
           resolve();
         }
@@ -61,11 +48,6 @@ async function parseRuns(
   // Read all files asynchronously
   await Promise.all(Array.from(allFiles).map((file) => readFile(file)));
 
-  // Log and return the results after all files have been processed
-  console.log('ironclad:', ironclad);
-  console.log('silent:', silent);
-  console.log('defect:', defect);
-  console.log('watcher:', watcher);
   return [ironclad, silent, defect, watcher];
 }
 
