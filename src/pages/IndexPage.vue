@@ -1,8 +1,5 @@
 <template>
   <q-page-container>
-    <div class="row">
-      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
-    </div>
     <div class="row" style="justify-content: center">
       <main-character-card
         v-for="(character, index) in results"
@@ -10,6 +7,9 @@
         :character="character"
         class="q-mr-md q-mb-md"
       />
+    </div>
+    <div class="row justify-center">
+      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
     </div>
   </q-page-container>
 </template>
@@ -39,7 +39,12 @@ function handleDirectorySelection(event: Event) {
   selectedFile.value = event.target.files;
 }
 
-const results = ref<CharacterWinRateDto[]>([]);
+const results = ref<CharacterWinRateDto[]>([
+  { name: 'IRONCLAD' } as CharacterWinRateDto,
+  { name: 'THE_SILENT' } as CharacterWinRateDto,
+  { name: 'DEFECT' } as CharacterWinRateDto,
+  { name: 'WATCHER' } as CharacterWinRateDto,
+]);
 
 watch(
   () => selectedFile.value,
