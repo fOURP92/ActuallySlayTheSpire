@@ -45,7 +45,6 @@ watch(
   () => selectedFile.value,
   async () => {
     if (!selectedFile.value) return;
-    // console.log('selected file is now:', selectedFile.value);
     results.value = await parseRuns(selectedFile.value);
   }
 );
