@@ -46,6 +46,7 @@
           {{ character?.loses }}
         </div>
       </div>
+      <q-separator />
       <div
         style="display: flex; justify-content: center"
         class="text-center text-class"
@@ -54,6 +55,11 @@
         {{
           calculateWinPercentage(props.character?.wins, props.character?.loses)
         }}
+      </div>
+      <q-separator />
+
+      <div class="text-center text-class">
+        Highest ascension win:{{ character?.highestAscensionWon }}
       </div>
     </q-card-section>
   </q-card>

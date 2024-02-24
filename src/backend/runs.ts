@@ -19,20 +19,36 @@ async function parseRuns(
         if (event.target && event.target.result) {
           const fileContent = event.target.result as string;
           const fileObject = JSON.parse(fileContent);
-
           const characterChosen: string = fileObject.character_chosen;
+          const ascensionLevel = fileObject.ascension_level;
           switch (characterChosen) {
             case 'IRONCLAD':
-              fileObject.killed_by ? ironclad.loses++ : ironclad.wins++;
+              if (fileObject.killed_by) {
+                ironclad.loses++;
+              } else {
+                parseWin(ironclad, ascensionLevel);
+              }
               break;
             case 'THE_SILENT':
-              fileObject.killed_by ? silent.loses++ : silent.wins++;
+              if (fileObject.killed_by) {
+                silent.loses++;
+              } else {
+                parseWin(silent, ascensionLevel);
+              }
               break;
             case 'DEFECT':
-              fileObject.killed_by ? defect.loses++ : defect.wins++;
+              if (fileObject.killed_by) {
+                defect.loses++;
+              } else {
+                parseWin(defect, ascensionLevel);
+              }
               break;
             case 'WATCHER':
-              fileObject.killed_by ? watcher.loses++ : watcher.wins++;
+              if (fileObject.killed_by) {
+                watcher.loses++;
+              } else {
+                parseWin(watcher, ascensionLevel);
+              }
               break;
           }
           resolve();
@@ -48,6 +64,15 @@ async function parseRuns(
   await Promise.all(Array.from(allFiles).map((file) => readFile(file)));
 
   return [ironclad, silent, defect, watcher];
+}
+
+function parseWin(char: CharacterWinRateDto, highestAscension: string) {
+  char.wins++;
+  if (!char.highestAscensionWon) {
+    char.highestAscensionWon = highestAscension;
+  } else if (+highestAscension > +char.highestAscensionWon) {
+    char.highestAscensionWon = highestAscension;
+  }
 }
 
 export { parseRuns };
