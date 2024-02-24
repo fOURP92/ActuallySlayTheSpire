@@ -21,7 +21,6 @@ async function parseRuns(
           const fileObject = JSON.parse(fileContent);
 
           const characterChosen: string = fileObject.character_chosen;
-          console.log(characterChosen);
           switch (characterChosen) {
             case 'IRONCLAD':
               fileObject.killed_by ? ironclad.loses++ : ironclad.wins++;
