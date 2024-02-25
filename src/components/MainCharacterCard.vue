@@ -1,5 +1,9 @@
 <template>
-  <q-card style="width: 300px; height: 400px; cursor: pointer" class="card">
+  <q-card
+    style="width: 300px; height: 400px; cursor: pointer"
+    class="card"
+    @click="redirectToMainCharacterPage"
+  >
     <q-img
       v-if="character?.name === 'IRONCLAD'"
       src="../assets/ironclad.jpg"
@@ -46,6 +50,7 @@
           {{ character?.loses }}
         </div>
       </div>
+      <q-separator />
       <div
         style="display: flex; justify-content: center"
         class="text-center text-class"
@@ -55,6 +60,11 @@
           calculateWinPercentage(props.character?.wins, props.character?.loses)
         }}
       </div>
+      <q-separator />
+
+      <div class="text-center text-class">
+        Highest ascension win:{{ character?.highestAscensionWon }}
+      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -62,14 +72,18 @@
 <script setup lang="ts">
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 interface MainCharacterCardProps {
   character: CharacterWinRateDto | null;
+  dataLoaded: boolean;
 }
 
 const props = withDefaults(defineProps<MainCharacterCardProps>(), {
   character: null,
+  dataLoaded: false,
 });
+const router = useRouter();
 
 function calculateWinPercentage(
   wins: number | undefined,
@@ -89,6 +103,13 @@ const getBackgroundColor = computed<string>(() => {
 
   return '#000000';
 });
+
+function redirectToMainCharacterPage() {
+  if (!props.dataLoaded) {
+    return;
+  }
+  router.push(`/${props.character?.name.toLowerCase()}`);
+}
 </script>
 
 <style lang="css" scoped>

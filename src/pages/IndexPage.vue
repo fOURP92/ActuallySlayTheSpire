@@ -1,15 +1,16 @@
 <template>
   <q-page-container>
-    <div class="row">
-      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
-    </div>
     <div class="row" style="justify-content: center">
       <main-character-card
         v-for="(character, index) in results"
         :key="index"
         :character="character"
+        :data-loaded="dataLoaded"
         class="q-mr-md q-mb-md"
       />
+    </div>
+    <div class="row justify-center">
+      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
     </div>
   </q-page-container>
 </template>
@@ -19,6 +20,7 @@ import { ref, watch } from 'vue';
 import { parseRuns } from '../backend/runs';
 import { CharacterWinRateDto } from '../dtos/CharacterWinRateDto';
 import MainCharacterCard from 'src/components/MainCharacterCard.vue';
+import { useFilesStore } from '../stores/slayStore';
 
 function choseRunsDirectory() {
   //
@@ -33,19 +35,28 @@ function choseRunsDirectory() {
   openExplorer.click();
 }
 
+const store = useFilesStore();
 const selectedFile = ref<FileList | null>(null);
+const dataLoaded = ref<boolean>(false);
 
 function handleDirectorySelection(event: Event) {
   selectedFile.value = event.target.files;
 }
 
-const results = ref<CharacterWinRateDto[]>([]);
+const results = ref<CharacterWinRateDto[]>([
+  { name: 'IRONCLAD' } as CharacterWinRateDto,
+  { name: 'THE_SILENT' } as CharacterWinRateDto,
+  { name: 'DEFECT' } as CharacterWinRateDto,
+  { name: 'WATCHER' } as CharacterWinRateDto,
+]);
 
 watch(
   () => selectedFile.value,
   async () => {
     if (!selectedFile.value) return;
     results.value = await parseRuns(selectedFile.value);
+    store.results = results.value;
+    dataLoaded.value = true;
   }
 );
 </script>
