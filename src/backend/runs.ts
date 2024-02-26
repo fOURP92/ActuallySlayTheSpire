@@ -1,7 +1,7 @@
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
 
 async function parseRuns(
-  allFiles: FileList,
+  allFiles: FileList[],
   character: string | null = null
 ): Promise<CharacterWinRateDto[]> {
   const ironclad: CharacterWinRateDto = { wins: 0, loses: 0, name: 'IRONCLAD' };
