@@ -10,7 +10,13 @@
       />
     </div>
     <div class="row justify-center">
-      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
+      <q-btn
+        label="load data"
+        color="primary"
+        push
+        @click="choseRunsDirectory"
+        class="button-shadow"
+      />
     </div>
   </q-page-container>
 </template>
@@ -23,7 +29,6 @@ import MainCharacterCard from 'src/components/MainCharacterCard.vue';
 import { useFilesStore } from '../stores/slayStore';
 
 function choseRunsDirectory() {
-  //
   let openExplorer = document.createElement('input');
   openExplorer.style.display = 'none';
   openExplorer.classList.add('file-explorer');
@@ -41,6 +46,7 @@ const dataLoaded = ref<boolean>(false);
 
 function handleDirectorySelection(event: Event) {
   selectedFile.value = event.target.files;
+  store.files = event.target.files;
 }
 
 const results = ref<CharacterWinRateDto[]>([
@@ -49,6 +55,14 @@ const results = ref<CharacterWinRateDto[]>([
   { name: 'DEFECT' } as CharacterWinRateDto,
   { name: 'WATCHER' } as CharacterWinRateDto,
 ]);
+
+async function init() {
+  if (store.files.length > 0) {
+    results.value = await parseRuns(store.files as FileList[]);
+    dataLoaded.value = true;
+  }
+}
+init();
 
 watch(
   () => selectedFile.value,
@@ -60,3 +74,9 @@ watch(
   }
 );
 </script>
+
+<style lang="css">
+.button-shadow {
+  box-shadow: rgba(0, 0, 0, 0.685) 5px 5px;
+}
+</style>
