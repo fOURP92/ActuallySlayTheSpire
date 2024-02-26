@@ -1,6 +1,11 @@
 <template>
   <q-card
-    style="width: 300px; height: 400px; cursor: pointer"
+    style="
+      width: 300px;
+      height: 400px;
+      cursor: pointer;
+      border: 1px outset black;
+    "
     class="card"
     @click="redirectToMainCharacterPage"
   >
@@ -73,6 +78,7 @@
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
 
 interface MainCharacterCardProps {
   character: CharacterWinRateDto | null;
@@ -84,6 +90,7 @@ const props = withDefaults(defineProps<MainCharacterCardProps>(), {
   dataLoaded: false,
 });
 const router = useRouter();
+const $q = useQuasar();
 
 function calculateWinPercentage(
   wins: number | undefined,
@@ -106,6 +113,11 @@ const getBackgroundColor = computed<string>(() => {
 
 function redirectToMainCharacterPage() {
   if (!props.dataLoaded) {
+    $q.notify({
+      type: 'negative',
+      message: 'No data loaded..',
+      color: 'red-6',
+    });
     return;
   }
   router.push(`/${props.character?.name.toLowerCase()}`);
@@ -126,5 +138,6 @@ function redirectToMainCharacterPage() {
 .card:hover {
   transform: scale(1.07);
   box-shadow: 0px 0px 20px rgba(1, 1, 1, 1.3);
+  /* box-shadow: 0px 0px 20px rgba(255, 255, 255, 1); this is white*/
 }
 </style>
