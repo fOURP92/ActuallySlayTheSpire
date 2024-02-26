@@ -10,7 +10,13 @@
       />
     </div>
     <div class="row justify-center">
-      <q-btn label="load data" color="primary" @click="choseRunsDirectory" />
+      <q-btn
+        label="load data"
+        color="primary"
+        push
+        @click="choseRunsDirectory"
+        class="button-shadow"
+      />
     </div>
   </q-page-container>
 </template>
