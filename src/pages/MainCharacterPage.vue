@@ -3,6 +3,7 @@
   <div>{{ character.wins }}</div>
   <div>{{ character.loses }}</div>
   <div>{{ character.highestAscensionWon }}</div>
+  <q-btn label="Home" to="/" />
 </template>
 
 <script setup lang="ts">
