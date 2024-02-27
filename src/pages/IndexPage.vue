@@ -15,7 +15,7 @@
         color="primary"
         push
         @click="choseRunsDirectory"
-        class="button-shadow"
+        class="button-shadow q-mt-lg"
       />
     </div>
   </q-page-container>
@@ -78,5 +78,8 @@ watch(
 <style lang="css">
 .button-shadow {
   box-shadow: rgba(0, 0, 0, 0.685) 5px 5px;
+}
+html {
+  background-color: rgb(211, 209, 209);
 }
 </style>

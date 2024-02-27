@@ -23,28 +23,28 @@ async function parseRuns(
           const ascensionLevel = fileObject.ascension_level;
           switch (characterChosen) {
             case 'IRONCLAD':
-              if (fileObject.killed_by) {
+              if (!fileObject.victory) {
                 ironclad.loses++;
               } else {
                 parseWin(ironclad, ascensionLevel);
               }
               break;
             case 'THE_SILENT':
-              if (fileObject.killed_by) {
+              if (!fileObject.victory) {
                 silent.loses++;
               } else {
                 parseWin(silent, ascensionLevel);
               }
               break;
             case 'DEFECT':
-              if (fileObject.killed_by) {
+              if (!fileObject.victory) {
                 defect.loses++;
               } else {
                 parseWin(defect, ascensionLevel);
               }
               break;
             case 'WATCHER':
-              if (fileObject.killed_by) {
+              if (!fileObject.victory) {
                 watcher.loses++;
               } else {
                 parseWin(watcher, ascensionLevel);

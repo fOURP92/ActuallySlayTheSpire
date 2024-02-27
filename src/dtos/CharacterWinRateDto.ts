@@ -4,6 +4,3 @@ export interface CharacterWinRateDto {
   loses: number;
   highestAscensionWon?: string;
 }
-//wip
-//ascension prop
-//more??
