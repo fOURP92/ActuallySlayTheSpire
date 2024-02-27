@@ -71,7 +71,9 @@ module.exports = configure(function (/* ctx */) {
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
-
+      alias: {
+        '@': path.join(__dirname, './src'),
+      },
       // vitePlugins: [
       //   [ 'package-name', { ..options.. } ]
       // ]
