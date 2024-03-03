@@ -1,10 +1,12 @@
 import { CharacterWinRateDto } from '@/dtos/CharacterWinRateDto';
 import { DetailedCharacterDto } from '@/dtos/DetailedCharacterDto';
+import { Loading } from 'quasar';
 
 async function detailedParse(
   allFiles: FileList[],
   character: CharacterWinRateDto
 ): Promise<DetailedCharacterDto> {
+  Loading.show();
   const newChar: DetailedCharacterDto = {
     name: character.name,
   } as DetailedCharacterDto;
@@ -54,6 +56,7 @@ async function detailedParse(
   } catch (error) {
     console.error('Error reading files:', error);
   }
+  Loading.hide();
   return newChar;
 }
 

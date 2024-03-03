@@ -27,6 +27,9 @@ import { parseRuns } from '../backend/runs';
 import { CharacterWinRateDto } from '../dtos/CharacterWinRateDto';
 import MainCharacterCard from 'src/components/MainCharacterCard.vue';
 import { useFilesStore } from '../stores/slayStore';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
 
 function choseRunsDirectory() {
   let openExplorer = document.createElement('input');
@@ -57,10 +60,12 @@ const results = ref<CharacterWinRateDto[]>([
 ]);
 
 async function init() {
+  $q.loading.show();
   if (store.files.length > 0) {
     results.value = await parseRuns(store.files as FileList[]);
     dataLoaded.value = true;
   }
+  $q.loading.hide();
 }
 init();
 
