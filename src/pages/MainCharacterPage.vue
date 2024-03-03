@@ -1,8 +1,9 @@
 <template>
-  <div>{{ character.name }}</div>
-  <div>{{ character.wins }}</div>
-  <div>{{ character.loses }}</div>
-  <div>{{ character.highestAscensionWon }}</div>
+  <div>name:{{ character.name }}</div>
+  <div>wins:{{ character.wins }}</div>
+  <div>loses:{{ character.loses }}</div>
+  <div>highest asc won:{{ character.highestAscensionWon }}</div>
+  <div>killed by:{{ character.killedBy }}</div>
   <q-btn label="Home" to="/" />
 </template>
 
@@ -10,15 +11,22 @@
 import { useRouter } from 'vue-router';
 import { useFilesStore } from '../stores/slayStore';
 import { CharacterWinRateDto } from '@/dtos/CharacterWinRateDto';
+import { detailedParse } from '../services/detailedParse';
+import { DetailedCharacterDto } from '@/dtos/DetailedCharacterDto';
+import { ref } from 'vue';
 
 const router = useRouter();
 const store = useFilesStore();
-//maybe show run history? like last ten..
-//add notify for when data not loaded for example..
 
 const routeCharacter = router.currentRoute.value.params.character.toUpperCase();
-const character: CharacterWinRateDto = store.results.filter(
-  (char: CharacterWinRateDto) => char.name === routeCharacter
-)[0];
+
+const character = ref<DetailedCharacterDto>(
+  store.results.filter(
+    (char: CharacterWinRateDto) => char.name === routeCharacter
+  )[0] as DetailedCharacterDto
+); //typescript at its best :)
+
+detailedParse(store.files, character.value).then((res) => {
+  character.value = { ...character.value, ...res };
+});
 </script>
-../stores/slayStore
