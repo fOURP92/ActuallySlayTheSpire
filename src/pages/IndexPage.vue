@@ -60,12 +60,10 @@ const results = ref<CharacterWinRateDto[]>([
 ]);
 
 async function init() {
-  $q.loading.show();
   if (store.files.length > 0) {
     results.value = await parseRuns(store.files as FileList[]);
     dataLoaded.value = true;
   }
-  $q.loading.hide();
 }
 init();
 
