@@ -1,9 +1,12 @@
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
+import { Loading } from 'quasar';
 
 async function parseRuns(
   allFiles: FileList[],
   character: string | null = null
 ): Promise<CharacterWinRateDto[]> {
+  Loading.show();
+
   const ironclad: CharacterWinRateDto = { wins: 0, loses: 0, name: 'IRONCLAD' };
   const silent: CharacterWinRateDto = { wins: 0, loses: 0, name: 'THE_SILENT' };
   const defect: CharacterWinRateDto = { wins: 0, loses: 0, name: 'DEFECT' };
@@ -62,6 +65,7 @@ async function parseRuns(
 
   // Read all files asynchronously
   await Promise.all(Array.from(allFiles).map((file) => readFile(file)));
+  Loading.hide();
 
   return [ironclad, silent, defect, watcher];
 }
