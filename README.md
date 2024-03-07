@@ -1,8 +1,10 @@
-# Quasar App (actuallysts)
+Hi, this is ActuallySlayTheSpire! Not much done yet..
+Something you can use to see some of your Slay The Spire stats..
+Click on load data and locate your /runs folder to upload..
+WIP
 
-A Quasar Project
+![AstsHomeImg](https://github.com/fOURP92/ActuallySlayTheSpire/assets/34622425/60e59a9b-8bdf-4a98-bda9-239f10ed200a)
 
-![slayDemo](https://github.com/fOURP92/ActuallySlayTheSpire/assets/34622425/36faa7c8-155e-4392-a70f-90a5e00ed550)
 
 
 ## Install the dependencies
