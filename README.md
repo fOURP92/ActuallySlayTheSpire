@@ -2,6 +2,9 @@
 
 A Quasar Project
 
+![slayDemo](https://github.com/fOURP92/ActuallySlayTheSpire/assets/34622425/36faa7c8-155e-4392-a70f-90a5e00ed550)
+
+
 ## Install the dependencies
 ```bash
 yarn
