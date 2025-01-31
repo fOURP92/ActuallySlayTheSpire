@@ -115,7 +115,7 @@ function redirectToMainCharacterPage() {
   if (!props.dataLoaded) {
     $q.notify({
       type: 'negative',
-      message: 'No data loaded..',
+      message: 'No data loaded...',
       color: 'red-6',
     });
     return;
