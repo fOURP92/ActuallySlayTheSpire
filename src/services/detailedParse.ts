@@ -1,6 +1,9 @@
 import { CharacterWinRateDto } from '@/dtos/CharacterWinRateDto';
 import { DetailedCharacterDto } from '@/dtos/DetailedCharacterDto';
 import { Loading } from 'quasar';
+import { useFilesStore } from '../stores/slayStore';
+
+const store = useFilesStore();
 
 async function detailedParse(
   allFiles: FileList[],
@@ -10,6 +13,11 @@ async function detailedParse(
   const newChar: DetailedCharacterDto = {
     name: character.name,
   } as DetailedCharacterDto;
+
+  store.ironcladRuns = [];
+  store.silentRuns = [];
+  store.defectRuns = [];
+  store.watcherRuns = [];
 
   async function readFile(file: File): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -21,6 +29,22 @@ async function detailedParse(
           try {
             const fileContent = JSON.parse(event.target.result as string);
             // console.log('JSON parsed');
+
+            switch (fileContent.character_chosen) {
+              case 'IRONCLAD':
+                store.ironcladRuns.push(fileContent);
+                break;
+              case 'THE_SILENT':
+                store.silentRuns.push(fileContent);
+                break;
+              case 'DEFECT':
+                store.defectRuns.push(fileContent);
+                break;
+              case 'WATCHER':
+                store.watcherRuns.push(fileContent);
+                break;
+            }
+
             if (fileContent.character_chosen !== newChar.name) {
               resolve(); // Resolve immediately if character doesn't match
             } else {
