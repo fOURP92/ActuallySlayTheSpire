@@ -1,11 +1,11 @@
 import { CharacterWinRateDto } from './CharacterWinRateDto';
 
 export interface DetailedCharacterDto extends CharacterWinRateDto {
-  runTimeInSeconds: number;
+  run_time_in_seconds: number;
   score: number;
-  floorReached: number;
-  isAscension: boolean;
+  floor_reached: number;
+  is_ascension: boolean;
   seed: string;
   victory: boolean;
-  killedBy?: string;
+  killed_by?: string;
 }

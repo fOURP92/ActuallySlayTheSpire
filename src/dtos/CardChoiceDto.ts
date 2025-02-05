@@ -1,5 +1,5 @@
 export interface CardChoice {
   floor: number;
-  notPicked: Array<string>;
+  not_picked: Array<string>;
   picked: string;
 }
