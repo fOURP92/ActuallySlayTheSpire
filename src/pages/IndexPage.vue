@@ -27,9 +27,6 @@ import { parseRuns } from '../backend/runs';
 import { CharacterWinRateDto } from '../dtos/CharacterWinRateDto';
 import MainCharacterCard from 'src/components/MainCharacterCard.vue';
 import { useFilesStore } from '../stores/slayStore';
-import { useQuasar } from 'quasar';
-
-const $q = useQuasar();
 
 function choseRunsDirectory() {
   let openExplorer = document.createElement('input');

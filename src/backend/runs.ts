@@ -1,5 +1,6 @@
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
 import { Loading } from 'quasar';
+import { useFilesStore } from '@/stores/slayStore';
 
 async function parseRuns(
   allFiles: FileList[],
@@ -26,6 +27,7 @@ async function parseRuns(
           const ascensionLevel = fileObject.ascension_level;
           switch (characterChosen) {
             case 'IRONCLAD':
+              useFilesStore().ironcladRuns.push(fileObject);
               if (!fileObject.victory) {
                 ironclad.loses++;
               } else {
@@ -33,6 +35,7 @@ async function parseRuns(
               }
               break;
             case 'THE_SILENT':
+              useFilesStore().silentRuns.push(fileObject);
               if (!fileObject.victory) {
                 silent.loses++;
               } else {
@@ -40,6 +43,7 @@ async function parseRuns(
               }
               break;
             case 'DEFECT':
+              useFilesStore().defectRuns.push(fileObject);
               if (!fileObject.victory) {
                 defect.loses++;
               } else {
@@ -47,6 +51,7 @@ async function parseRuns(
               }
               break;
             case 'WATCHER':
+              useFilesStore().watcherRuns.push(fileObject);
               if (!fileObject.victory) {
                 watcher.loses++;
               } else {
@@ -66,7 +71,6 @@ async function parseRuns(
   // Read all files asynchronously
   await Promise.all(Array.from(allFiles).map((file) => readFile(file)));
   Loading.hide();
-
   return [ironclad, silent, defect, watcher];
 }
 
