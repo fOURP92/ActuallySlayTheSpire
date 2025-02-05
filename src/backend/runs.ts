@@ -1,6 +1,7 @@
 import { CharacterWinRateDto } from 'src/dtos/CharacterWinRateDto';
 import { Loading } from 'quasar';
 import { useFilesStore } from '@/stores/slayStore';
+import RunDto from '@/dtos/RunDto';
 
 async function parseRuns(
   allFiles: FileList[],
@@ -12,6 +13,11 @@ async function parseRuns(
   const silent: CharacterWinRateDto = { wins: 0, loses: 0, name: 'THE_SILENT' };
   const defect: CharacterWinRateDto = { wins: 0, loses: 0, name: 'DEFECT' };
   const watcher: CharacterWinRateDto = { wins: 0, loses: 0, name: 'WATCHER' };
+
+  const ironCladRuns: Array<RunDto> = [];
+  const silentRuns: Array<RunDto> = [];
+  const defectRuns: Array<RunDto> = [];
+  const watcherRuns: Array<RunDto> = [];
 
   // Define a function to read a single file
   async function readFile(file: File): Promise<void> {
@@ -27,7 +33,8 @@ async function parseRuns(
           const ascensionLevel = fileObject.ascension_level;
           switch (characterChosen) {
             case 'IRONCLAD':
-              useFilesStore().ironcladRuns.push(fileObject);
+              ironCladRuns.push(fileObject);
+
               if (!fileObject.victory) {
                 ironclad.loses++;
               } else {
@@ -35,7 +42,7 @@ async function parseRuns(
               }
               break;
             case 'THE_SILENT':
-              useFilesStore().silentRuns.push(fileObject);
+              silentRuns.push(fileObject);
               if (!fileObject.victory) {
                 silent.loses++;
               } else {
@@ -43,7 +50,8 @@ async function parseRuns(
               }
               break;
             case 'DEFECT':
-              useFilesStore().defectRuns.push(fileObject);
+              defectRuns.push(fileObject);
+
               if (!fileObject.victory) {
                 defect.loses++;
               } else {
@@ -51,7 +59,7 @@ async function parseRuns(
               }
               break;
             case 'WATCHER':
-              useFilesStore().watcherRuns.push(fileObject);
+              watcherRuns.push(fileObject);
               if (!fileObject.victory) {
                 watcher.loses++;
               } else {
@@ -70,6 +78,10 @@ async function parseRuns(
 
   // Read all files asynchronously
   await Promise.all(Array.from(allFiles).map((file) => readFile(file)));
+  useFilesStore().ironcladRuns = ironCladRuns;
+  useFilesStore().defectRuns = defectRuns;
+  useFilesStore().silentRuns = silentRuns;
+  useFilesStore().watcherRuns = watcherRuns;
   Loading.hide();
   return [ironclad, silent, defect, watcher];
 }
