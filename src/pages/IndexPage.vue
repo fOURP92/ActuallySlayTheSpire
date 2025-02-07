@@ -22,10 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import MainCharacterCard from 'src/components/MainCharacterCard.vue';
+import { onMounted, ref, watch } from 'vue';
 import { parseRuns } from '../backend/runs';
 import { CharacterWinRateDto } from '../dtos/CharacterWinRateDto';
-import MainCharacterCard from 'src/components/MainCharacterCard.vue';
 import { useFilesStore } from '../stores/slayStore';
 
 function choseRunsDirectory() {
@@ -62,7 +62,7 @@ async function init() {
     dataLoaded.value = true;
   }
 }
-init();
+onMounted(init);
 
 watch(
   () => selectedFile.value,
@@ -79,6 +79,7 @@ watch(
 .button-shadow {
   box-shadow: rgba(0, 0, 0, 0.685) 5px 5px;
 }
+
 html {
   background-color: rgb(211, 209, 209);
 }
