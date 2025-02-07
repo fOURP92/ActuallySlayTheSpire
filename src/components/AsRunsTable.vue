@@ -2,7 +2,7 @@
   <q-table
     :rows="runs"
     :columns="columns"
-    class="q-mt-sm my-sticky-header-table runsTable"
+    class="my-sticky-header-table runsTable"
     :pagination="pagination"
     :style="{ height: height }"
   >
