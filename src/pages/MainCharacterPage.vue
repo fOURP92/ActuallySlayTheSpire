@@ -94,19 +94,59 @@ const columns: Array<QTableColumn> = [
     label: 'Playtime',
     align: 'left',
     style: 'width: 1rem',
+    sortable: true,
   },
   {
     name: 'score',
     field: 'score',
     label: 'Score',
     align: 'center',
+    sortable: true,
   },
-
+  {
+    name: 'floor',
+    field: 'floor_reached',
+    label: 'Floor',
+    style: 'width: 1rem',
+    sortable: true,
+  },
   {
     name: 'killedBy',
     field: 'killed_by',
     label: 'Killed by',
     align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'decksize',
+    field: 'master_deck',
+    label: 'Deck Size',
+    align: 'center',
+    sortable: true,
+    sort: (deckA: Array<string>, deckB: Array<string>) =>
+      deckA.length - deckB.length,
+  },
+  {
+    name: 'relics',
+    field: 'relics',
+    label: 'Relics',
+    align: 'center',
+    sortable: true,
+    sort: (relicsA: Array<string>, relicsB: Array<string>) =>
+      relicsA.length - relicsB.length,
+  },
+  {
+    name: 'events',
+    field: 'event_choices',
+    label: 'Events',
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'campfires',
+    field: 'campfire_choices',
+    label: 'Campfires',
+    align: 'center',
     sortable: true,
   },
 ];
