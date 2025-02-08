@@ -45,30 +45,34 @@
     <q-separator />
     <q-card-section>
       <div class="text-class" style="display: flex; justify-content: center">
-        wins: &nbsp;
+        Wins: &nbsp;
         <div style="color: green">
           {{ character?.wins }}
           &nbsp;
         </div>
-        | &nbsp;loses: &nbsp;
+        | &nbsp;Loses: &nbsp;
         <div style="color: red">
           {{ character?.loses }}
         </div>
       </div>
       <q-separator />
       <div
-        style="display: flex; justify-content: center"
+        style="display: flex; justify-content: center; font-size: 18px"
         class="text-center text-class"
       >
-        winrate:
+        Winrate:
         {{
           calculateWinPercentage(props.character?.wins, props.character?.loses)
         }}
       </div>
       <q-separator />
 
-      <div class="text-center text-class">
+      <div class="text-center text-class" style="font-size: 18px">
         Highest ascension win:{{ character?.highest_ascension_won }}
+      </div>
+      <q-separator />
+      <div class="text-center text-class" style="font-size: 18px">
+        Playtime:{{ playtime }} hours
       </div>
     </q-card-section>
   </q-card>
@@ -109,6 +113,11 @@ const getBackgroundColor = computed<string>(() => {
   if (props.character.name === 'WATCHER') return '#421876';
 
   return '#000000';
+});
+
+const playtime = computed<number>(() => {
+  if (!props.character) return 0;
+  return Math.floor(props.character.playtime / 3600);
 });
 
 function redirectToMainCharacterPage() {
