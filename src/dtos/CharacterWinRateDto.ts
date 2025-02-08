@@ -3,4 +3,5 @@ export interface CharacterWinRateDto {
   wins: number;
   loses: number;
   highest_ascension_won?: string;
+  playtime: number;
 }

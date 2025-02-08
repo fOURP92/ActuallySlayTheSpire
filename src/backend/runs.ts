@@ -9,10 +9,30 @@ async function parseRuns(
 ): Promise<CharacterWinRateDto[]> {
   Loading.show();
 
-  const ironclad: CharacterWinRateDto = { wins: 0, loses: 0, name: 'IRONCLAD' };
-  const silent: CharacterWinRateDto = { wins: 0, loses: 0, name: 'THE_SILENT' };
-  const defect: CharacterWinRateDto = { wins: 0, loses: 0, name: 'DEFECT' };
-  const watcher: CharacterWinRateDto = { wins: 0, loses: 0, name: 'WATCHER' };
+  const ironclad: CharacterWinRateDto = {
+    wins: 0,
+    loses: 0,
+    name: 'IRONCLAD',
+    playtime: 0,
+  };
+  const silent: CharacterWinRateDto = {
+    wins: 0,
+    loses: 0,
+    name: 'THE_SILENT',
+    playtime: 0,
+  };
+  const defect: CharacterWinRateDto = {
+    wins: 0,
+    loses: 0,
+    name: 'DEFECT',
+    playtime: 0,
+  };
+  const watcher: CharacterWinRateDto = {
+    wins: 0,
+    loses: 0,
+    name: 'WATCHER',
+    playtime: 0,
+  };
 
   const ironCladRuns: Array<RunDto> = [];
   const silentRuns: Array<RunDto> = [];
@@ -40,6 +60,7 @@ async function parseRuns(
               } else {
                 parseWin(ironclad, ascensionLevel);
               }
+              ironclad.playtime += fileObject.playtime;
               break;
             case 'THE_SILENT':
               silentRuns.push(fileObject);
@@ -48,6 +69,7 @@ async function parseRuns(
               } else {
                 parseWin(silent, ascensionLevel);
               }
+              silent.playtime += fileObject.playtime;
               break;
             case 'DEFECT':
               defectRuns.push(fileObject);
@@ -57,6 +79,7 @@ async function parseRuns(
               } else {
                 parseWin(defect, ascensionLevel);
               }
+              defect.playtime += fileObject.playtime;
               break;
             case 'WATCHER':
               watcherRuns.push(fileObject);
@@ -65,6 +88,7 @@ async function parseRuns(
               } else {
                 parseWin(watcher, ascensionLevel);
               }
+              watcher.playtime += fileObject.playtime;
               break;
           }
           resolve();
