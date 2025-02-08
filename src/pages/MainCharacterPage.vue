@@ -22,41 +22,31 @@ const routeCharacter = (
 ).toUpperCase();
 
 const character = ref<DetailedCharacterDto | null>(null);
-const runs = ref<Array<RunDto>>([]);
-
-const screenSize = ref($q.screen);
-
-watch(screenSize, () => {
-  console.log('screen size is now:', screenSize.value);
-});
 
 function parse() {
   try {
     character.value = store.results.filter(
       (char: CharacterWinRateDto) => char.name === routeCharacter
     )[0] as DetailedCharacterDto;
-    switch (character.value.name) {
-      case 'IRONCLAD':
-        runs.value = store.ironcladRuns;
-        break;
-      case 'DEFECT':
-        runs.value = store.defectRuns;
-        break;
-      case 'THE_SILENT':
-        runs.value = store.silentRuns;
-        break;
-      case 'WATCHER':
-        runs.value = store.watcherRuns;
-        break;
-      default:
-        runs.value = [];
-        break;
-    }
   } catch (error) {
     // useErrorStore().handle(error as AxiosError);
     console.error(error);
   }
 }
+const runs = computed<Array<RunDto>>(() => {
+  switch (character.value?.name) {
+    case 'IRONCLAD':
+      return store.ironcladRuns;
+    case 'DEFECT':
+      return store.defectRuns;
+    case 'THE_SILENT':
+      return store.silentRuns;
+    case 'WATCHER':
+      return store.watcherRuns;
+    default:
+      return [];
+  }
+});
 
 const columns: Array<QTableColumn> = [
   {
