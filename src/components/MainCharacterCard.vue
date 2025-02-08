@@ -68,7 +68,7 @@
       <q-separator />
 
       <div class="text-center text-class" style="font-size: 18px">
-        Highest ascension win:{{ character?.highest_ascension_won }}
+        Highest Ascension Win:{{ character?.highest_ascension_won }}
       </div>
       <q-separator />
       <div class="text-center text-class" style="font-size: 18px">
