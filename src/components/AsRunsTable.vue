@@ -2,30 +2,18 @@
   <q-table
     :rows="runs"
     :columns="columns"
+    title="Runs Data"
     class="my-sticky-header-table runsTable"
+    :dense="tableDense"
     :pagination="pagination"
     :style="{ height: height }"
+    style="min-height: 500px"
   >
+    <template #top>
+      <q-toggle v-model="tableDense" label="Dense" />
+    </template>
     <template #body-cell-timestamp="props">
       <q-td :props="props"> {{ timeConverter(props.row.timestamp) }} </q-td>
-    </template>
-
-    <template #body-cell-playtime="props">
-      <q-td :props="props"> {{ Math.floor(props.row.playtime / 60) }}min </q-td>
-    </template>
-
-    <template #body-cell-victory="props">
-      <q-td :props="props">
-        <q-icon
-          :name="props.row.victory ? icons.trophy : icons.skull"
-          size="sm"
-          :color="props.row.victory ? 'green-6' : 'red-4'"
-        >
-          <q-tooltip style="background-color: #000" :delay="200">
-            {{ props.row.victory ? 'WIN' : 'LOSS' }}
-          </q-tooltip>
-        </q-icon>
-      </q-td>
     </template>
 
     <template #body-cell-name="props">
@@ -41,6 +29,38 @@
         }}
       </q-td>
     </template>
+    <template #body-cell-victory="props">
+      <q-td :props="props">
+        <q-icon
+          :name="props.row.victory ? icons.trophy : icons.skull"
+          size="sm"
+          :color="props.row.victory ? 'green-6' : 'red-4'"
+        >
+          <q-tooltip style="background-color: #000" :delay="200">
+            {{ props.row.victory ? 'WIN' : 'LOSS' }}
+          </q-tooltip>
+        </q-icon>
+      </q-td>
+    </template>
+    <template #body-cell-playtime="props">
+      <q-td :props="props"> {{ Math.floor(props.row.playtime / 60) }}min </q-td>
+    </template>
+
+    <template #body-cell-decksize="props">
+      <q-td :props="props"> {{ props.row.master_deck.length }} </q-td>
+    </template>
+
+    <template #body-cell-relics="props">
+      <q-td :props="props"> {{ props.row.relics.length }} </q-td>
+    </template>
+
+    <template #body-cell-events="props">
+      <q-td :props="props"> {{ props.row.event_choices.length }} </q-td>
+    </template>
+
+    <template #body-cell-campfires="props">
+      <q-td :props="props"> {{ props.row.campfire_choices.length }} </q-td>
+    </template>
   </q-table>
 </template>
 
@@ -49,7 +69,7 @@ import icons from '@/core/icons';
 import RunDto from '@/dtos/RunDto';
 import timeConverter from '@/services/timestampParse';
 import { QTableColumn } from 'quasar';
-import { markRaw, watch } from 'vue';
+import { markRaw, ref, watch } from 'vue';
 
 markRaw({
   icons,
@@ -84,6 +104,8 @@ const pagination = {
   page: 1,
   rowsPerPage: 0,
 };
+
+const tableDense = ref(true);
 </script>
 
 <style lang="sass">
