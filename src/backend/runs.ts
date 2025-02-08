@@ -88,10 +88,10 @@ async function parseRuns(
 
 function parseWin(char: CharacterWinRateDto, highestAscension: string) {
   char.wins++;
-  if (!char.highestAscensionWon) {
-    char.highestAscensionWon = highestAscension;
-  } else if (+highestAscension > +char.highestAscensionWon) {
-    char.highestAscensionWon = highestAscension;
+  if (!char.highest_ascension_won) {
+    char.highest_ascension_won = highestAscension;
+  } else if (+highestAscension > +char.highest_ascension_won) {
+    char.highest_ascension_won = highestAscension;
   }
 }
 
