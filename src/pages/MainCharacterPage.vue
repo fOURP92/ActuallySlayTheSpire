@@ -1,5 +1,5 @@
 <template>
-  <as-runs-table :runs="runs" :columns="columns" />
+  <as-runs-table :runs="runs" :columns="columns" :height="tableHeight" />
 </template>
 
 <script setup lang="ts">
@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 import { useFilesStore } from '../stores/slayStore';
 import { CharacterWinRateDto } from '@/dtos/CharacterWinRateDto';
 import { DetailedCharacterDto } from '@/dtos/DetailedCharacterDto';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import AsRunsTable from '@/components/AsRunsTable.vue';
 import RunDto from '@/dtos/RunDto';
 import { QTableColumn } from 'quasar';
@@ -17,46 +17,40 @@ const router = useRouter();
 const store = useFilesStore();
 const $q = useQuasar();
 
+const tableHeight = computed<string>(() => {
+  return $q.screen.height - 100 + 'px';
+});
+
 const routeCharacter = (
   router.currentRoute.value.params.character as string
 ).toUpperCase();
 
 const character = ref<DetailedCharacterDto | null>(null);
-const runs = ref<Array<RunDto>>([]);
-
-const screenSize = ref($q.screen);
-
-watch(screenSize, () => {
-  console.log('screen size is now:', screenSize.value);
-});
 
 function parse() {
   try {
     character.value = store.results.filter(
       (char: CharacterWinRateDto) => char.name === routeCharacter
     )[0] as DetailedCharacterDto;
-    switch (character.value.name) {
-      case 'IRONCLAD':
-        runs.value = store.ironcladRuns;
-        break;
-      case 'DEFECT':
-        runs.value = store.defectRuns;
-        break;
-      case 'THE_SILENT':
-        runs.value = store.silentRuns;
-        break;
-      case 'WATCHER':
-        runs.value = store.watcherRuns;
-        break;
-      default:
-        runs.value = [];
-        break;
-    }
   } catch (error) {
     // useErrorStore().handle(error as AxiosError);
     console.error(error);
   }
 }
+const runs = computed<Array<RunDto>>(() => {
+  switch (character.value?.name) {
+    case 'IRONCLAD':
+      return store.ironcladRuns;
+    case 'DEFECT':
+      return store.defectRuns;
+    case 'THE_SILENT':
+      return store.silentRuns;
+    case 'WATCHER':
+      return store.watcherRuns;
+    default:
+      return [];
+  }
+});
 
 const columns: Array<QTableColumn> = [
   {
@@ -94,19 +88,59 @@ const columns: Array<QTableColumn> = [
     label: 'Playtime',
     align: 'left',
     style: 'width: 1rem',
+    sortable: true,
   },
   {
     name: 'score',
     field: 'score',
     label: 'Score',
     align: 'center',
+    sortable: true,
   },
-
+  {
+    name: 'floor',
+    field: 'floor_reached',
+    label: 'Floor',
+    style: 'width: 1rem',
+    sortable: true,
+  },
   {
     name: 'killedBy',
     field: 'killed_by',
     label: 'Killed by',
     align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'decksize',
+    field: 'master_deck',
+    label: 'Deck Size',
+    align: 'center',
+    sortable: true,
+    sort: (deckA: Array<string>, deckB: Array<string>) =>
+      deckA.length - deckB.length,
+  },
+  {
+    name: 'relics',
+    field: 'relics',
+    label: 'Relics',
+    align: 'center',
+    sortable: true,
+    sort: (relicsA: Array<string>, relicsB: Array<string>) =>
+      relicsA.length - relicsB.length,
+  },
+  {
+    name: 'events',
+    field: 'event_choices',
+    label: 'Events',
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'campfires',
+    field: 'campfire_choices',
+    label: 'Campfires',
+    align: 'center',
     sortable: true,
   },
 ];
