@@ -3,7 +3,7 @@ Something you can use to see some of your Slay The Spire stats..
 Click on load data and locate your /runs folder to upload..
 WIP
 
-![astsHomeImg](https://github.com/user-attachments/assets/e758f6c6-4fe2-44c3-8e92-d7ba1bef327f)
+![astsHomeImg](https://github.com/user-attachments/assets/d747ef6b-d83d-4587-b664-9a0714d062f7)
 ![slayTable](https://github.com/user-attachments/assets/68999d18-1903-487c-a678-77ef5b6640d7)
 
 
