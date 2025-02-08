@@ -1,5 +1,5 @@
 <template>
-  <as-runs-table :runs="runs" :columns="columns" />
+  <as-runs-table :runs="runs" :columns="columns" :height="tableHeight" />
 </template>
 
 <script setup lang="ts">
@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 import { useFilesStore } from '../stores/slayStore';
 import { CharacterWinRateDto } from '@/dtos/CharacterWinRateDto';
 import { DetailedCharacterDto } from '@/dtos/DetailedCharacterDto';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import AsRunsTable from '@/components/AsRunsTable.vue';
 import RunDto from '@/dtos/RunDto';
 import { QTableColumn } from 'quasar';
@@ -16,6 +16,10 @@ import { useQuasar } from 'quasar';
 const router = useRouter();
 const store = useFilesStore();
 const $q = useQuasar();
+
+const tableHeight = computed<string>(() => {
+  return $q.screen.height - 100 + 'px';
+});
 
 const routeCharacter = (
   router.currentRoute.value.params.character as string
