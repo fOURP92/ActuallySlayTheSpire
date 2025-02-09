@@ -47,12 +47,12 @@
       <div class="text-class" style="display: flex; justify-content: center">
         Wins: &nbsp;
         <div style="color: green">
-          {{ character?.wins }}
+          {{ character?.wins || '-' }}
           &nbsp;
         </div>
         | &nbsp;Loses: &nbsp;
         <div style="color: red">
-          {{ character?.loses }}
+          {{ character?.loses || '-' }}
         </div>
       </div>
       <q-separator />
@@ -62,17 +62,20 @@
       >
         Winrate:
         {{
-          calculateWinPercentage(props.character?.wins, props.character?.loses)
+          calculateWinPercentage(
+            props.character?.wins,
+            props.character?.loses
+          ) || '-'
         }}
       </div>
       <q-separator />
 
       <div class="text-center text-class" style="font-size: 18px">
-        Highest Ascension Win:{{ character?.highest_ascension_won }}
+        Highest Ascension Win:{{ character?.highest_ascension_won || '-' }}
       </div>
       <q-separator />
       <div class="text-center text-class" style="font-size: 18px">
-        Playtime:{{ playtime }} hours
+        Playtime:{{ playtime ? playtime + ' hours' : '-' }}
       </div>
     </q-card-section>
   </q-card>
