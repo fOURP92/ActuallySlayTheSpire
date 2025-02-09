@@ -10,6 +10,9 @@
     style="min-height: 500px"
   >
     <template #top>
+      <div class="text-h6" style="width: 100%">
+        {{ title }}
+      </div>
       <q-toggle v-model="tableDense" label="Dense" />
     </template>
     <template #body-cell-timestamp="props">
@@ -79,12 +82,14 @@ interface AsRunsTableProps {
   runs: Array<RunDto>;
   columns: Array<QTableColumn>;
   height?: string;
+  title?: string;
 }
 
 const props = withDefaults(defineProps<AsRunsTableProps>(), {
   runs: () => [],
   columns: () => [],
   height: '700px',
+  title: 'Runs Data',
 });
 
 watch(
