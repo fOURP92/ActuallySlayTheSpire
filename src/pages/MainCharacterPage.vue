@@ -1,5 +1,11 @@
 <template>
-  <as-runs-table :runs="runs" :columns="columns" :height="tableHeight" />
+  <as-runs-table
+    :runs="runs"
+    :columns="columns"
+    :height="tableHeight"
+    :title="character?.name"
+  />
+
 </template>
 
 <script setup lang="ts">
@@ -60,13 +66,13 @@ const columns: Array<QTableColumn> = [
     align: 'left',
     style: 'width: 8rem',
   },
-  {
-    name: 'name',
-    field: 'character_chosen',
-    label: 'Name',
-    align: 'left',
-    style: 'width: 3rem',
-  },
+  // {
+  //   name: 'name',
+  //   field: 'character_chosen',
+  //   label: 'Name',
+  //   align: 'left',
+  //   style: 'width: 3rem',
+  // },
   {
     name: 'victory',
     field: 'victory',
