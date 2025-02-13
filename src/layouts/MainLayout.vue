@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <as-header />
 
-    <as-error-handling />
+    <!-- <as-error-handling /> -->
 
     <q-page-container>
       <router-view />
@@ -12,5 +12,5 @@
 
 <script setup lang="ts">
 import AsHeader from '../components/layout/AsHeader.vue';
-import AsErrorHandling from '../components/layout/AsErrorHandling.vue';
+// import AsErrorHandling from '../components/layout/AsErrorHandling.vue';
 </script>
