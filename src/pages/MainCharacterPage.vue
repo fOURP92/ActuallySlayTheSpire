@@ -5,7 +5,6 @@
     :height="tableHeight"
     :title="character?.name"
   />
-
 </template>
 
 <script setup lang="ts">
@@ -148,6 +147,12 @@ const columns: Array<QTableColumn> = [
     label: 'Campfires',
     align: 'center',
     sortable: true,
+  },
+  {
+    name: 'deck',
+    field: '',
+    label: 'Deck',
+    align: 'center',
   },
 ];
 
