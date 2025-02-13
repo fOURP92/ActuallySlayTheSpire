@@ -9,30 +9,7 @@
     class="card"
     @click="redirectToMainCharacterPage"
   >
-    <q-img
-      v-if="character?.name === 'IRONCLAD'"
-      src="../assets/ironclad.jpg"
-      fit="cover"
-      :ratio="4 / 3"
-    />
-    <q-img
-      v-if="character?.name === 'THE_SILENT'"
-      src="../assets/silent.jpg"
-      fit="cover"
-      :ratio="4 / 3"
-    />
-    <q-img
-      v-if="character?.name === 'DEFECT'"
-      src="../assets/defect.jpg"
-      fit="cover"
-      :ratio="4 / 3"
-    />
-    <q-img
-      v-if="character?.name === 'WATCHER'"
-      src="../assets/watcher.jpg"
-      fit="cover"
-      :ratio="4 / 3"
-    />
+    <q-img :src="getCharacterImage()" fit="cover" :ratio="4 / 3" />
     <q-card-section>
       <div
         class="absolute-bottom text-subtitle1 text-center text-class"
@@ -133,6 +110,21 @@ function redirectToMainCharacterPage() {
     return;
   }
   router.push(`/${props.character?.name.toLowerCase()}`);
+}
+
+function getCharacterImage() {
+  switch (props.character?.name) {
+    case 'IRONCLAD':
+      return new URL('../assets/ironclad.jpg', import.meta.url).href;
+    case 'DEFECT':
+      return new URL('../assets/defect.jpg', import.meta.url).href;
+    case 'THE_SILENT':
+      return new URL('../assets/silent.jpg', import.meta.url).href;
+    case 'WATCHER':
+      return new URL('../assets/watcher.jpg', import.meta.url).href;
+    default:
+      return '';
+  }
 }
 </script>
 
